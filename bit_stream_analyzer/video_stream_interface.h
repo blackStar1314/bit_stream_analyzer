@@ -20,7 +20,7 @@ namespace video_stream
     class IVideoStream
     {
     public:
-        virtual DecodeFormat GetDecodeFormat() = 0;
+        virtual std::string GetName() = 0;
         virtual VideoFormat GetVideoFormat() = 0;
         virtual uint16_t GetPictureWidth() = 0;
         virtual uint16_t GetPicttureHeight() = 0;
