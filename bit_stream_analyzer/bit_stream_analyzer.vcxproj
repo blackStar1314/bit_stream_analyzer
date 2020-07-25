@@ -23,13 +23,13 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{19de65ea-28b6-4fe8-b50b-10db33c22ba2}</ProjectGuid>
     <RootNamespace>bitstreamanalyzer</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName)\utils;$(SolutionDir)$(ProjectName)\utils\h264</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +141,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bit_stream_analyzer.cpp" />
+    <ClCompile Include="h264_nal_parse.cpp" />
+    <ClCompile Include="hevc_nal_parse.cpp" />
+    <ClCompile Include="nal_parse.cpp" />
+    <ClCompile Include="utils\h264\h264_sei.cpp" />
+    <ClCompile Include="utils\h264\h264_stream.cpp" />
+    <ClCompile Include="utils\hevc\hevc_sei.cpp" />
+    <ClCompile Include="utils\hevc\hevc_stream.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="h264_nal_parse.h" />
+    <ClInclude Include="hevc_nal_parse.h" />
+    <ClInclude Include="nal_parse.h" />
+    <ClInclude Include="utils\bs.h" />
+    <ClInclude Include="utils\h264\h264_sei.h" />
+    <ClInclude Include="utils\h264\h264_stream.h" />
+    <ClInclude Include="utils\hevc\hevc_sei.h" />
+    <ClInclude Include="utils\hevc\hevc_stream.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

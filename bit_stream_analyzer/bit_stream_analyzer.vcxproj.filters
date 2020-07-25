@@ -13,10 +13,69 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{d8b7a979-7640-40c1-908b-29b98af6b5be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\h264">
+      <UniqueIdentifier>{cccacb4d-b14c-44b6-bdf1-a020ef162906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\hevc">
+      <UniqueIdentifier>{67dc1db1-d4bc-48fd-8b8c-403b5ee610d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bit_stream_analyzer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="nal_parse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\h264\h264_sei.cpp">
+      <Filter>utils\h264</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\h264\h264_stream.cpp">
+      <Filter>utils\h264</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\hevc\hevc_sei.cpp">
+      <Filter>utils\hevc</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\hevc\hevc_stream.cpp">
+      <Filter>utils\hevc</Filter>
+    </ClCompile>
+    <ClCompile Include="h264_nal_parse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hevc_nal_parse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="nal_parse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\bs.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\h264\h264_sei.h">
+      <Filter>utils\h264</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\h264\h264_stream.h">
+      <Filter>utils\h264</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\hevc\hevc_sei.h">
+      <Filter>utils\hevc</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\hevc\hevc_stream.h">
+      <Filter>utils\hevc</Filter>
+    </ClInclude>
+    <ClInclude Include="h264_nal_parse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hevc_nal_parse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

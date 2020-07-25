@@ -1,6 +1,4 @@
-#include "stdafx.h" // for mfc
-
-#include "h265_sei.h"
+﻿#include "hevc_sei.h"
 
 #include <stdio.h>
 #include <stdlib.h> // malloc
@@ -18,20 +16,20 @@ h265_sei_t* h265_sei_new()
 void h265_sei_free(h265_sei_t* s)
 {
     if (s == NULL) return;
-    if ( s->payload != NULL ) free(s->payload);
+    if (s->payload != NULL) free(s->payload);
     free(s);
 }
 
 
-void h265_read_sei_end_bits(bs_t* b )
+void h265_read_sei_end_bits(bs_t* b)
 {
     // if the message doesn't end at a byte border
-    if ( !bs_byte_aligned( b ) )
+    if (!bs_byte_aligned(b))
     {
-        if ( !bs_read_u1( b ) ) fprintf(stderr, "WARNING: bit_equal_to_one is 0!!!!\n");
-        while ( ! bs_byte_aligned( b ) )
+        if (!bs_read_u1(b)) fprintf(stderr, "WARNING: bit_equal_to_one is 0!!!!\n");
+        while (!bs_byte_aligned(b))
         {
-            if ( bs_read_u1( b ) ) fprintf(stderr, "WARNING: bit_equal_to_zero is 1!!!!\n");
+            if (bs_read_u1(b)) fprintf(stderr, "WARNING: bit_equal_to_zero is 1!!!!\n");
         }
     }
 
@@ -111,7 +109,7 @@ void write_sei_payload(h265_stream_t* h, bs_t* b, int payloadType, int payloadSi
     h265_sei_t* s = h->sei;
 
     int i;
-    for ( i = 0; i < s->payloadSize; i++ )
+    for (i = 0; i < s->payloadSize; i++)
         bs_write_u(b, 8, s->payload[i]);
 }
 #endif

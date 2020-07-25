@@ -1,4 +1,4 @@
-#include <stdint.h>
+﻿#include <stdint.h>
 
 #ifndef _H265_SEI_H
 #define _H265_SEI_H        1
@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 #include "bs.h"
-#include "h265_stream.h"
+#include "hevc_stream.h"
 
 h265_sei_t* h265_sei_new();
 void h265_sei_free(h265_sei_t* s);
