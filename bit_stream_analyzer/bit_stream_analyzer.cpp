@@ -11,7 +11,7 @@ using namespace nal;
 
 int main()
 {
-    const std::string file_path = "test_res\\cap_del.265";
+    const std::string file_path = "test_res\\out.264";
     auto type = NalParse::GetStreamType(file_path);
     std::cout << "stream type: " << type << std::endl;
     std::shared_ptr<NalParse> nal_parse;

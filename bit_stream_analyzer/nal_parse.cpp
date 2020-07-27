@@ -116,7 +116,7 @@ namespace nal
 
         Seek(offset);
 
-        while (!is_eof_)
+        while (!in_file_stream_.eof())
         {
             auto nal_unit = GetAnnexBNalUnit(in_file_stream_);
             if (!nal_unit)
@@ -157,10 +157,11 @@ namespace nal
 
         int offset = 0;
         auto next_start_code = FindNextStartCode(in_file_stream_, offset);
+        bool is_eof = false;
         if (in_file_stream_.eof())
         {
             // 如果文件流指针文件结束后，不能通过seek移动到前面的位置，这里需要重新关闭打开下
-            is_eof_ = true;
+            is_eof = true;
             offset += 1 + start_code_len_;
             ReOpenFile();
         }
@@ -175,6 +176,12 @@ namespace nal
 
         nal->start_code = start_code;
         ReadNalUnit(nal);
+
+        if (is_eof)
+        {
+            in_file_stream_.setstate(std::ios_base::eofbit);
+        }
+
         return nal;
     }
 

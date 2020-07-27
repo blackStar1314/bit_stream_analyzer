@@ -70,7 +70,6 @@ namespace nal
         std::map<uint64_t, std::shared_ptr<NalUnit>> nal_;
         std::string file_path_;
         std::ifstream in_file_stream_;
-        std::atomic_bool is_eof_ = false;
         char prev_start_code_buffer_[5]{ 0 };
         size_t start_code_len_ = 0;
     };

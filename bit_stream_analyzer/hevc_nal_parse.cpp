@@ -121,8 +121,8 @@ namespace nal
         {
             static std::map<int, std::string> s_des =
             {
-                {H265_SH_SLICE_TYPE_B, "P Slice"},
-                {H265_SH_SLICE_TYPE_P, "B Slice"},
+                {H265_SH_SLICE_TYPE_B, "B Slice"},
+                {H265_SH_SLICE_TYPE_P, "P Slice"},
                 {H265_SH_SLICE_TYPE_I, "I Slice"},
             };
 
