@@ -76,15 +76,14 @@ namespace nal
     }
     std::string NalParse::GetNalData(uint64_t no)
     {
-        return ""s;
-        /*  std::advance(nal_, no);
-          auto iter = nal_.begin();
-          if (iter == nal_.end())
-          {
-              return ""s;
-          }
+        auto iter = nal_.begin();
+        std::advance(iter, no);
+        if (iter == nal_.end())
+        {
+            return ""s;
+        }
 
-          return ParseNalData(iter->second);*/
+        return ParseNalData(iter->second);
     }
     bool NalParse::ReOpenFile()
     {
@@ -97,6 +96,10 @@ namespace nal
     }
     std::string NalParse::ParseNalData(std::shared_ptr<NalUnit> nal_unit)
     {
+        if (in_file_stream_.eof() || !in_file_stream_.is_open())
+        {
+            ReOpenFile();
+        }
         Seek(nal_unit->offset);
 
         auto size = nal_unit->length;

@@ -26,13 +26,15 @@ int main()
 
     if (nal_parse->ProbeNal())
     {
+        auto data0 = nal_parse->GetNalData(0);
         auto nals = nal_parse->GetNals();
-        std::cerr << "No." << std::setw(20) << "Offset" << std::setw(40) << "Length" << std::setw(60) << "NAL Type" << std::setw(100) << "Info" << std::endl;
-        for (auto iter = nals.begin(); iter != nals.end(); ++iter)
-        {
-            std::cerr << iter->first << std::setw(20) << std::hex << iter->second->offset << std::setw(40) << std::dec << iter->second->length
-                << std::setw(60) << std::dec << iter->second->type << std::setw(100) << iter->second->slice_type << std::endl;
-        }
+        auto data1 = nal_parse->GetNalData(nals.size() - 1);
+        /* std::cerr << "No." << std::setw(20) << "Offset" << std::setw(40) << "Length" << std::setw(60) << "NAL Type" << std::setw(100) << "Info" << std::endl;
+         for (auto iter = nals.begin(); iter != nals.end(); ++iter)
+         {
+             std::cerr << iter->first << std::setw(20) << std::hex << iter->second->offset << std::setw(40) << std::dec << iter->second->length
+                 << std::setw(60) << std::dec << iter->second->type << std::setw(100) << iter->second->slice_type << std::endl;
+         }*/
 
         system("pause");
     }
