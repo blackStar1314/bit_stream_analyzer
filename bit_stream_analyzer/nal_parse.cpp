@@ -94,6 +94,31 @@ namespace nal
         }
         return in_file_stream_.is_open();
     }
+    bool NalParse::DelRangeNalDdata(uint64_t first, uint64_t last)
+    {
+        auto iter_find = nal_.begin();
+        std::advance(iter_find, first);
+        auto first_iter = iter_find;
+        std::advance(iter_find, last - first);
+        auto last_iter = iter_find;
+
+        if (first_iter == nal_.end()) return false;
+
+        nal_.erase(first_iter, last_iter);
+
+        return true;
+    }
+    bool NalParse::DumpFile(std::ofstream& out)
+    {
+        if (!out.is_open()) return false;
+
+        for (auto iter = nal_.begin(); iter != nal_.end(); ++iter)
+        {
+            out << ParseNalData(iter->second);
+        }
+
+        return true;
+    }
     std::string NalParse::ParseNalData(std::shared_ptr<NalUnit> nal_unit)
     {
         if (in_file_stream_.eof() || !in_file_stream_.is_open())

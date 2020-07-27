@@ -28,6 +28,8 @@ namespace nal
         std::map<uint64_t, std::shared_ptr<NalUnit>> GetNals() const;
         std::string GetNalData(uint64_t no);
         bool ReOpenFile();
+        bool DelRangeNalDdata(uint64_t first, uint64_t last);
+        bool DumpFile(std::ofstream& out);
     protected:
         virtual std::string ParseNalData(std::shared_ptr<NalUnit> nal_unit);
         virtual bool Probe();
