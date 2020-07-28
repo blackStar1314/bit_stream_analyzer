@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <atomic>
+#include <iomanip>
 #include "common.h"
 
 namespace nal
@@ -30,6 +31,10 @@ namespace nal
         bool ReOpenFile();
         bool DelRangeNalDdata(uint64_t first, uint64_t last);
         bool DumpFile(std::ofstream& out);
+        static std::string Number2HexString(int number);
+        static std::string Bin2HexString(const std::string& bin);
+        static std::string ToUpper(const std::string& str);
+        static std::string ToLower(const std::string& str);
     protected:
         virtual std::string ParseNalData(std::shared_ptr<NalUnit> nal_unit);
         virtual bool Probe();

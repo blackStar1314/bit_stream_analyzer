@@ -35,13 +35,13 @@ namespace nal
             return DecodeFormat::NONE;
         }
 
-        fs::path path = fs::u8path(file_path);
+        fs::path path = fs::path(file_path);
         if (!path.has_extension())
         {
             // TODO: 暂时不考虑无扩展名称的
             return DecodeFormat::NONE;
         }
-        auto extension = path.extension().u8string();
+        auto extension = path.extension().string();
         std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
 
         static std::map<std::string, DecodeFormat> s_type =
@@ -119,6 +119,36 @@ namespace nal
 
         return true;
     }
+    std::string NalParse::ToUpper(const std::string& str)
+    {
+        std::string dest = str;
+        std::transform(dest.begin(), dest.end(), dest.begin(), ::toupper);
+        return dest;
+    }
+    std::string NalParse::ToLower(const std::string& str)
+    {
+        std::string dest = str;
+        std::transform(dest.begin(), dest.end(), dest.begin(), ::tolower);
+        return dest;
+    }
+    std::string NalParse::Number2HexString(int number)
+    {
+        std::stringstream ss;
+        ss << std::setfill('0') << std::setw(8) << std::hex << number;
+
+        return ss.str();
+    }
+    std::string NalParse::Bin2HexString(const std::string& bin)
+    {
+        std::stringstream ss;
+
+        for (const auto& b : bin)
+        {
+            ss << std::hex << std::setw(2) << std::setfill('0') << (b & 0xFF);
+        }
+
+        return ss.str();
+    }
     std::string NalParse::ParseNalData(std::shared_ptr<NalUnit> nal_unit)
     {
         if (in_file_stream_.eof() || !in_file_stream_.is_open())
@@ -135,7 +165,7 @@ namespace nal
     }
     bool NalParse::Probe()
     {
-        uint64_t id = 0;
+        uint64_t id = 1;
         int offset = FindFirstNalUnitOffset(in_file_stream_);
         if (offset < 0)
         {
@@ -239,21 +269,35 @@ namespace nal
         char buffer[5]{ 0 };
         in_file_stream_.read(buffer, sizeof(char) * 5);
         auto size = in_file_stream_.gcount();
-        if (size != 4 && size != 5)
+        if (size < start_code_len_)
         {
             return ""s;
         }
 
         int start_code_len = 0;
-        if (size == 4)
+        if (start_code_len_ == 0)
         {
-            FindStartCode3(reinterpret_cast<uint8_t*>(buffer));
-            start_code_len = size;
+            if (FindStartCode3(reinterpret_cast<uint8_t*>(buffer)))
+            {
+                start_code_len_ = 3;
+            }
+            if (FindStartCode4(reinterpret_cast<uint8_t*>(buffer)))
+            {
+                start_code_len_ = 4;
+            }
+
+            start_code_len = start_code_len_ + 1;
         }
-        else if (size == 5)
+        else
         {
-            FindStartCode4(reinterpret_cast<uint8_t*>(buffer));
-            start_code_len = size;
+            if (start_code_len_ == 3)
+            {
+                if (FindStartCode3(reinterpret_cast<uint8_t*>(buffer))) start_code_len = 4;
+            }
+            else if (start_code_len_ == 4)
+            {
+                if (FindStartCode4(reinterpret_cast<uint8_t*>(buffer))) start_code_len = 5;
+            }
         }
 
         if (0 == start_code_len) return ""s;
